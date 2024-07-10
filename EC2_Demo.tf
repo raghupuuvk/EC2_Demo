@@ -28,8 +28,6 @@ resource "aws_instance" "LinuxPublic_call" {
 resource "aws_security_group" "Security_group_call" {
   name        = "allow_tls"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.main.id
-
   tags = {
     Name = "Linux_Security_Group"
   }
@@ -39,7 +37,7 @@ resource "aws_security_group" "Security_group_call" {
 resource "aws_vpc_security_group_ingress_rule" "Security_group_ingress_call" {
   security_group_id = aws_security_group.Security_group_call.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = "All_Traffic"
+  from_port         = -1
   ip_protocol       = "tcp"
   to_port           = 443
 }
